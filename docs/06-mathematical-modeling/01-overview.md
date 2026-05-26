@@ -93,20 +93,20 @@ DeepSeek-V3 MLA: thay $h_\text{kv} \cdot d_\text{head}$ bằng $d_\text{kv,lora}
 ```mermaid
 flowchart TB
     subgraph Forward["Forward một token"]
-        H[hidden_states<br/>shape: B, T, d] --> RA[Router R]
-        RA -->|"logits (N, E)"| TopK[Top-k Selection]
-        TopK -->|indices| Dispatch[Dispatch tokens]
-        TopK -->|weights| Combine[Weighted combine]
-        Dispatch --> E1[Expert 1]
-        Dispatch --> E2[Expert 2]
-        Dispatch --> EE[...]
-        Dispatch --> EK[Expert E]
+        H["hidden_states<br/>shape: B, T, d"] --> RA["Router R"]
+        RA -->|"logits (N, E)"| TopK["Top-k Selection"]
+        TopK -->|"indices"| Dispatch["Dispatch tokens"]
+        TopK -->|"weights"| Combine["Weighted combine"]
+        Dispatch --> E1["Expert 1"]
+        Dispatch --> E2["Expert 2"]
+        Dispatch --> EE["..."]
+        Dispatch --> EK["Expert E"]
         E1 --> Combine
         E2 --> Combine
         EE --> Combine
         EK --> Combine
-        Combine --> Output[output<br/>shape: B, T, d]
-        Shared[Shared Expert<br/>optional] --> Combine
+        Combine --> Output["output<br/>shape: B, T, d"]
+        Shared["Shared Expert<br/>optional"] --> Combine
         H --> Shared
     end
 ```
@@ -116,25 +116,25 @@ flowchart TB
 ```mermaid
 graph LR
     subgraph Coarse["Coarse-grained (Mixtral 8x7B)"]
-        M1[Token] --> MR1{Router}
-        MR1 --> ME1[Expert 1<br/>5.6B]
-        MR1 --> ME2[Expert 2<br/>5.6B]
-        ME1 --> MOut1[Output]
+        M1["Token"] --> MR1{"Router"}
+        MR1 --> ME1["Expert 1<br/>5.6B"]
+        MR1 --> ME2["Expert 2<br/>5.6B"]
+        ME1 --> MOut1["Output"]
         ME2 --> MOut1
     end
 
     subgraph Fine["Fine-grained (DeepSeek-V3)"]
-        D1[Token] --> DR1{Router + Bias}
-        DR1 --> DG[Group Select 4/8]
-        DG --> DE1[Expert 47]
-        DG --> DE2[Expert 52]
-        DG --> DE3[...8 experts...]
-        DG --> DE8[Expert 198]
-        DE1 --> DOut1[Output]
+        D1["Token"] --> DR1{"Router + Bias"}
+        DR1 --> DG["Group Select 4/8"]
+        DG --> DE1["Expert 47"]
+        DG --> DE2["Expert 52"]
+        DG --> DE3["...8 experts..."]
+        DG --> DE8["Expert 198"]
+        DE1 --> DOut1["Output"]
         DE2 --> DOut1
         DE3 --> DOut1
         DE8 --> DOut1
-        DSh[Shared Expert<br/>2.6B] --> DOut1
+        DSh["Shared Expert<br/>2.6B"] --> DOut1
         D1 --> DSh
     end
 ```

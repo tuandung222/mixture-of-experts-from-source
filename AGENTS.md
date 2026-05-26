@@ -57,24 +57,43 @@ Docusaurus 3 dùng MDX 3. MDX parse `{...}` thành JSX expression **ngay cả tr
 
 **Quy tắc**: chạy `npm run build` mỗi khi thêm math hoặc dấu `<`. `qa_docs.py` và `tsc` không bắt được lỗi MDX.
 
+## 4b. Mermaid gotchas (lỗi không bị bắt bởi docusaurus build, painful)
+
+Docusaurus theme-mermaid **embed Mermaid source vào JS bundle và render client-side**. `npm run build` vẫn PASS dù syntax sai, user chỉ thấy lỗi "Parse error on line N" trong browser console khi mở page. Vì vậy **phải validate Mermaid trước commit** bằng `npm run qa:mermaid` (gọi `scripts/validate_mermaid.mjs`, parse từng block qua `mermaid.parse()`).
+
+Các pattern gây lỗi đã gặp:
+
+- **Nested square brackets**: `SX[z=[3, 1, -1]]` → parser tưởng `[` thứ hai là node shape lồng. **Fix**: bọc toàn bộ label trong dấu nháy → `SX["z = (3, 1, -1)"]`, hoặc đổi `[]` thành `()` trong text.
+- **Bare ellipsis**: `EE[...]` và `DE3[...8 experts...]` → mở đầu bằng `...` parser confuse. **Fix**: quote `EE["..."]`.
+- **Pipe label trần `|+|` và `|-|`**: `-` là char reserved cho arrow `-->`. Parser tưởng arrow tới ngắn. **Fix**: quote `|"positive"|` và `|"negative"|` (hoặc đổi nội dung).
+- **Unquoted `<` trong diamond**: `Q2{Latency p50 < 50ms?}` → có nguy cơ, `<` có thể bị confuse. **Fix**: quote `Q2{"Latency p50 under 50ms?"}` hoặc đổi sang "under".
+- **Unicode arrow `→`, `≤`, `≥`, `×` trong labels**: Mermaid version 11 đã khá tốt với unicode nhưng còn có edge case. **Fix**: thay bằng ASCII (`to`, `<=`, `>=`, `x`), hoặc quote.
+- **HTML `<br/>` trong unquoted bracket**: thường OK (Mermaid xử lý như HTML markup), nhưng safer khi quote.
+- **Apostrophe `'`**: `Can't fit` có thể confuse parser. **Fix**: đổi `Cannot fit` hoặc quote.
+
+**Quy tắc vàng**: mọi node label trong Mermaid (cả `[...]`, `{...}`, `(...)`) và mọi pipe label (`|...|`) **nên luôn bọc trong dấu nháy kép** nếu có bất kỳ special char (space + punctuation, brackets, comparison ops, arrows, math symbols). Đừng "tiết kiệm" bỏ quote.
+
+`scripts/validate_mermaid.mjs` dùng `mermaid.parse()` qua jsdom để catch all errors offline. Đã tích hợp vào `npm run verify` (bước `qa:mermaid`).
+
 ## 5. Workflow chuẩn
 
 Trước khi commit bất kỳ thay đổi nào trong `docs/`:
 
 ```bash
 npm run verify
-# = python3 scripts/qa_docs.py && tsc && docusaurus build
+# = qa_docs.py && qa:mermaid && tsc && docusaurus build
 ```
 
 Nếu chỉ sửa file nhỏ, có thể chạy từng bước:
 
 ```bash
-python3 scripts/qa_docs.py   # nhanh, bắt em-dash, sidebar, README
-npm run typecheck            # bắt lỗi TS trong sidebars.ts, docusaurus.config.ts
-npm run build                # CRITICAL: bắt lỗi MDX (xem mục 4)
+python3 scripts/qa_docs.py     # nhanh, bắt em-dash, sidebar, README
+node scripts/validate_mermaid.mjs   # bắt lỗi Mermaid parse (xem mục 4b)
+npm run typecheck              # bắt lỗi TS trong sidebars.ts, docusaurus.config.ts
+npm run build                  # CRITICAL: bắt lỗi MDX (xem mục 4)
 ```
 
-`npm run start` chỉ cho dev preview, **không phát hiện hết** lỗi build-time. Phải `build`.
+`npm run start` chỉ cho dev preview, **không phát hiện hết** lỗi build-time. Phải `build`. Build CHỈ bắt được MDX-level error; Mermaid parse error **không bị bắt** bởi build, phải `qa:mermaid` riêng.
 
 ## 6. Cấu trúc repo
 
@@ -87,13 +106,16 @@ docs/
   03-models/                  # Part 3: 10 model walkthroughs (12)
   04-cross-cutting/           # Part 4: EP, TP, quant, serving, training (6)
   05-comparison/              # Part 5: design comparison & decision guide (5)
+  06-mathematical-modeling/   # Part 6: math derivations, FLOPs, diagrams (6)
   resources/
     glossary.md
     cheatsheet.md
     references.md
 sidebars.ts                   # Phải đồng bộ với docs/ tree
 docusaurus.config.ts          # baseUrl, organizationName, math plugin
-scripts/qa_docs.py            # QA gate
+scripts/
+  qa_docs.py                  # QA gate (em-dash, sidebar, identity leak)
+  validate_mermaid.mjs        # QA gate cho Mermaid parse (mục 4b)
 .github/workflows/deploy.yml  # GitHub Pages auto-deploy on push main
 ```
 
@@ -161,10 +183,11 @@ Tool agent dùng: `grep_search` cho targeted search, `code_search` cho explorato
 - [ ] Không em-dash.
 - [ ] Math block với identifier dùng `\text{}` hoặc bỏ math.
 - [ ] Mọi `<digit` và `<-` bọc backtick.
+- [ ] Mermaid: mọi node/pipe label có special char được quote (mục 4b).
 - [ ] Citation code có file path + class name thực.
 - [ ] Số liệu có context (model + batch + seq_len).
 - [ ] Pitfall section nếu chapter dài (>200 dòng).
 - [ ] Câu cuối trỏ chapter kế.
 - [ ] `sidebars.ts` có entry cho file mới.
-- [ ] `npm run verify` pass.
+- [ ] `npm run verify` pass (gồm qa:mermaid).
 - [ ] Commit message ngắn gọn, mô tả thay đổi.

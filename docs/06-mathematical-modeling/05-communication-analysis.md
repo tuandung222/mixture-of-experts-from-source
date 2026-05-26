@@ -209,18 +209,18 @@ Với same total payload $M$, all-to-all approximately 2x faster than all-reduce
 ```mermaid
 graph TB
     subgraph AR["All-reduce: ring"]
-        A0[Rank 0] -->|chunk| A1[Rank 1]
-        A1 -->|chunk| A2[Rank 2]
-        A2 -->|chunk| A3[Rank 3]
-        A3 -->|chunk| A0
+        A0["Rank 0"] -->|"chunk"| A1["Rank 1"]
+        A1 -->|"chunk"| A2["Rank 2"]
+        A2 -->|"chunk"| A3["Rank 3"]
+        A3 -->|"chunk"| A0
     end
     subgraph A2A["All-to-all: full mesh"]
-        B0[Rank 0] <-->|direct| B1[Rank 1]
-        B0 <-->|direct| B2[Rank 2]
-        B0 <-->|direct| B3[Rank 3]
-        B1 <-->|direct| B2
-        B1 <-->|direct| B3
-        B2 <-->|direct| B3
+        B0["Rank 0"] <-->|"direct"| B1["Rank 1"]
+        B0 <-->|"direct"| B2["Rank 2"]
+        B0 <-->|"direct"| B3["Rank 3"]
+        B1 <-->|"direct"| B2
+        B1 <-->|"direct"| B3
+        B2 <-->|"direct"| B3
     end
 ```
 
@@ -265,16 +265,16 @@ Cost: $(W - 1) / W$ of expert FLOPs là wasted. For $W = 8$: 87.5% wasted means 
 ```mermaid
 graph LR
     subgraph Low["Low EP (W=1-2)"]
-        L1[Single GPU] -->|No comm| L2[Fast]
-        L1 -->|Memory limit| L3[Can't fit large model]
+        L1["Single GPU"] -->|"No comm"| L2["Fast"]
+        L1 -->|"Memory limit"| L3["Cannot fit large model"]
     end
     subgraph Med["Medium EP (W=4-8)"]
-        M1[Single-node NVLink] -->|Fast comm| M2[Throughput high]
-        M1 -->|Memory split| M3[Large model fits]
+        M1["Single-node NVLink"] -->|"Fast comm"| M2["Throughput high"]
+        M1 -->|"Memory split"| M3["Large model fits"]
     end
     subgraph High["High EP (W=16+)"]
-        H1[Multi-node IB] -->|Slow comm| H2[Throughput low]
-        H1 -->|Memory split deep| H3[Huge model fits]
+        H1["Multi-node IB"] -->|"Slow comm"| H2["Throughput low"]
+        H1 -->|"Memory split deep"| H3["Huge model fits"]
     end
 ```
 

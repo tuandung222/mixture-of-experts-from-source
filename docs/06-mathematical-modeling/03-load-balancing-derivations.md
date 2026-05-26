@@ -210,13 +210,13 @@ trong đó:
 
 ```mermaid
 graph LR
-    Target[Target f* = k/E] --> Err{Error = f* - f_i}
-    Actual[Current f_i] --> Err
-    Err -->|+| Up[bias += lr]
-    Err -->|-| Down[bias -= lr]
-    Up --> Bias[Update bias_i]
+    Target["Target f* = k/E"] --> Err{"Error = f* - f_i"}
+    Actual["Current f_i"] --> Err
+    Err -->|"positive"| Up["bias += lr"]
+    Err -->|"negative"| Down["bias -= lr"]
+    Up --> Bias["Update bias_i"]
     Down --> Bias
-    Bias --> Router[Affect next routing]
+    Bias --> Router["Affect next routing"]
     Router --> Actual
 ```
 

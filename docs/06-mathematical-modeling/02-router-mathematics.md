@@ -58,11 +58,11 @@ Khác softmax: không cạnh tranh zero-sum. Multi-hot OK.
 ```mermaid
 graph LR
     subgraph Softmax["Softmax (sum = 1)"]
-        SX[z=[3, 1, -1, 0, 2]] --> SY[p=[0.51, 0.07, 0.01, 0.03, 0.38]]
+        SX["z = (3, 1, -1, 0, 2)"] --> SY["p = (0.51, 0.07, 0.01, 0.03, 0.38)"]
     end
 
     subgraph Sigmoid["Sigmoid (independent)"]
-        GX[z=[3, 1, -1, 0, 2]] --> GY[s=[0.95, 0.73, 0.27, 0.50, 0.88]]
+        GX["z = (3, 1, -1, 0, 2)"] --> GY["s = (0.95, 0.73, 0.27, 0.50, 0.88)"]
     end
 ```
 
@@ -132,23 +132,23 @@ Tổng top-2 trong group là một heuristic của "group strength".
 ```mermaid
 graph LR
     subgraph G0["Group 0: experts 0-31"]
-        E00[s=0.8] --> Sum0[Sum top-2<br/>= 1.5]
-        E01[s=0.7] --> Sum0
-        E02[s=0.3] --> SkipA[skip]
-        EX1[...]
+        E00["s=0.8"] --> Sum0["Sum top-2<br/>= 1.5"]
+        E01["s=0.7"] --> Sum0
+        E02["s=0.3"] --> SkipA["skip"]
+        EX1["..."]
     end
     subgraph G1["Group 1: experts 32-63"]
-        E10[s=0.4] --> Sum1[Sum top-2<br/>= 0.7]
-        E11[s=0.3] --> Sum1
+        E10["s=0.4"] --> Sum1["Sum top-2<br/>= 0.7"]
+        E11["s=0.3"] --> Sum1
     end
     subgraph G2["Group 2: experts 64-95"]
-        E20[s=0.9] --> Sum2[Sum top-2<br/>= 1.7]
-        E21[s=0.8] --> Sum2
+        E20["s=0.9"] --> Sum2["Sum top-2<br/>= 1.7"]
+        E21["s=0.8"] --> Sum2
     end
-    Sum0 --> GS[Group scores: 1.5, 0.7, 1.7]
+    Sum0 --> GS["Group scores: 1.5, 0.7, 1.7"]
     Sum1 --> GS
     Sum2 --> GS
-    GS --> SelG[Top-2 groups: G2, G0]
+    GS --> SelG["Top-2 groups: G2, G0"]
 ```
 
 ## Jitter noise modeling

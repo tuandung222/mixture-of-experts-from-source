@@ -375,10 +375,10 @@ Reasonable estimates. Real throughput phụ thuộc kernel efficiency.
 
 ```mermaid
 graph LR
-    A[Total params] -->|Quality scales with this| Q[Model quality]
-    B[Active params] -->|Inference cost scales with this| C[Cost]
-    A -.->|Strong correlation| Q
-    B -.->|Direct correlation| C
+    A["Total params"] -->|"Quality scales with this"| Q["Model quality"]
+    B["Active params"] -->|"Inference cost scales with this"| C["Cost"]
+    A -.->|"Strong correlation"| Q
+    B -.->|"Direct correlation"| C
     style A fill:#cfc
     style B fill:#fcc
     style Q fill:#cfc
