@@ -66,6 +66,20 @@ const sidebars: SidebarsConfig = {
         '03-models/12-tong-ket-so-sanh',
       ],
     },
+    {
+      type: 'category',
+      label: 'Phần 4: Cross-cutting concerns',
+      link: {type: 'doc', id: '04-cross-cutting/01-overview'},
+      collapsed: false,
+      items: [
+        '04-cross-cutting/01-overview',
+        '04-cross-cutting/02-expert-parallelism',
+        '04-cross-cutting/03-tensor-parallel-with-moe',
+        '04-cross-cutting/04-quantization-moe',
+        '04-cross-cutting/05-inference-serving-moe',
+        '04-cross-cutting/06-training-moe-recipe',
+      ],
+    },
   ],
 };
 
