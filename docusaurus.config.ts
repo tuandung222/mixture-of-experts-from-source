@@ -139,6 +139,7 @@ const config: Config = {
             {label: 'Model walkthroughs', to: '/docs/03-models/01-overview'},
             {label: 'Cross-cutting', to: '/docs/04-cross-cutting/01-overview'},
             {label: 'Design comparison', to: '/docs/05-comparison/01-overview'},
+            {label: 'Mathematical modeling', to: '/docs/06-mathematical-modeling/01-overview'},
           ],
         },
         {

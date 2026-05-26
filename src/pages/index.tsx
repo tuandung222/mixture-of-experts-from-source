@@ -21,6 +21,7 @@ const parts: Part[] = [
   {number: '03', title: 'Model walkthroughs (10 model)', description: 'Line-level của Mixtral, Switch Transformers, DeepSeek-V3, Qwen3-MoE, GPT-OSS, OLMoE, JetMoE, Jamba, NLLB-MoE, PhiMoE kèm bảng so sánh.', to: '/docs/03-models/01-overview', ready: true},
   {number: '04', title: 'Cross-cutting: EP, TP, quant, serving', description: 'Expert parallelism với RouterParallel và sentinels, tensor parallel cho MoE, MXFP4/FP8 per-expert quantization, continuous batching, training recipe.', to: '/docs/04-cross-cutting/01-overview', ready: true},
   {number: '05', title: 'Design comparison và decision guide', description: 'Matrix so sánh router, balancing, expert design ngang 10 model. Decision tree: khi nào chọn MoE vs dense, top-1 vs top-k, shared vs fine-grained.', to: '/docs/05-comparison/01-overview', ready: true},
+  {number: '06', title: 'Mathematical modeling & visualization', description: 'Derivation aux loss từ Cauchy-Schwarz, gradient flow, scaling laws FLOPs/memory, communication bandwidth analysis, kèm 15+ Mermaid diagram và ASCII chart.', to: '/docs/06-mathematical-modeling/01-overview', ready: true},
 ];
 
 function HomepageHeader(): ReactNode {

@@ -95,6 +95,20 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
+      label: 'Phần 6: Mathematical modeling',
+      link: {type: 'doc', id: '06-mathematical-modeling/01-overview'},
+      collapsed: false,
+      items: [
+        '06-mathematical-modeling/01-overview',
+        '06-mathematical-modeling/02-router-mathematics',
+        '06-mathematical-modeling/03-load-balancing-derivations',
+        '06-mathematical-modeling/04-scaling-flops-memory',
+        '06-mathematical-modeling/05-communication-analysis',
+        '06-mathematical-modeling/06-visualizations-gallery',
+      ],
+    },
+    {
+      type: 'category',
       label: 'Tài nguyên',
       collapsed: true,
       items: [
