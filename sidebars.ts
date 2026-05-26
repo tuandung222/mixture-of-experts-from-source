@@ -80,6 +80,29 @@ const sidebars: SidebarsConfig = {
         '04-cross-cutting/06-training-moe-recipe',
       ],
     },
+    {
+      type: 'category',
+      label: 'Phần 5: Design comparison',
+      link: {type: 'doc', id: '05-comparison/01-overview'},
+      collapsed: false,
+      items: [
+        '05-comparison/01-overview',
+        '05-comparison/02-routing-comparison-matrix',
+        '05-comparison/03-load-balancing-comparison',
+        '05-comparison/04-expert-design-comparison',
+        '05-comparison/05-khi-nao-dung-moe-vs-dense',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Tài nguyên',
+      collapsed: true,
+      items: [
+        'resources/glossary',
+        'resources/cheatsheet',
+        'resources/references',
+      ],
+    },
   ],
 };
 

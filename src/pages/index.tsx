@@ -17,10 +17,10 @@ type Part = {
 const parts: Part[] = [
   {number: '00', title: 'Tổng quan về Mixture of Experts', description: 'Sparse vs dense, scaling laws, lý do MoE bùng nổ 2023-2025, thuật ngữ cốt lõi và bản đồ toàn series 10 model.', to: '/docs/00-tong-quan/01-overview', ready: true},
   {number: '01', title: 'Foundations: router, routing, balancing', description: 'Gate logits, top-k selection, jitter noise, token-choice vs expert-choice, auxiliary loss, z-loss, aux-free bias, expert capacity, shared experts.', to: '/docs/01-foundations/01-overview', ready: true},
-  {number: '02', title: 'HuggingFace MoE infrastructure', description: 'integrations/moe.py walkthrough: ExpertsInterface, use_experts_implementation decorator, batched_mm vs grouped_mm dispatch, load_balancing_loss_func helper.', to: '/docs/intro', ready: false},
-  {number: '03', title: 'Model walkthroughs (10 model)', description: 'Line-level của Mixtral, Switch Transformers, DeepSeek-V3, Qwen3-MoE, GPT-OSS, OLMoE, JetMoE, Jamba, NLLB-MoE, PhiMoE kèm bảng so sánh.', to: '/docs/intro', ready: false},
-  {number: '04', title: 'Cross-cutting: EP, TP, quant, serving', description: 'Expert parallelism với RouterParallel và sentinels, tensor parallel cho MoE, MXFP4/FP8 per-expert quantization, continuous batching, training recipe.', to: '/docs/intro', ready: false},
-  {number: '05', title: 'Design comparison và decision guide', description: 'Matrix so sánh router, balancing, expert design ngang 10 model. Decision tree: khi nào chọn MoE vs dense, top-1 vs top-k, shared vs fine-grained.', to: '/docs/intro', ready: false},
+  {number: '02', title: 'HuggingFace MoE infrastructure', description: 'integrations/moe.py walkthrough: ExpertsInterface, use_experts_implementation decorator, batched_mm vs grouped_mm dispatch, load_balancing_loss_func helper.', to: '/docs/02-hf-moe-infra/01-overview', ready: true},
+  {number: '03', title: 'Model walkthroughs (10 model)', description: 'Line-level của Mixtral, Switch Transformers, DeepSeek-V3, Qwen3-MoE, GPT-OSS, OLMoE, JetMoE, Jamba, NLLB-MoE, PhiMoE kèm bảng so sánh.', to: '/docs/03-models/01-overview', ready: true},
+  {number: '04', title: 'Cross-cutting: EP, TP, quant, serving', description: 'Expert parallelism với RouterParallel và sentinels, tensor parallel cho MoE, MXFP4/FP8 per-expert quantization, continuous batching, training recipe.', to: '/docs/04-cross-cutting/01-overview', ready: true},
+  {number: '05', title: 'Design comparison và decision guide', description: 'Matrix so sánh router, balancing, expert design ngang 10 model. Decision tree: khi nào chọn MoE vs dense, top-1 vs top-k, shared vs fine-grained.', to: '/docs/05-comparison/01-overview', ready: true},
 ];
 
 function HomepageHeader(): ReactNode {

@@ -110,7 +110,7 @@ Alternative trên Blackwell: matmul direct ở FP4 (FP4 tensor cores), no dequan
 
 Empirical (GPT-OSS paper):
 
-- MXFP4 vs bf16: <0.5% quality drop trên benchmark.
+- MXFP4 vs bf16: dưới 0.5% quality drop trên benchmark.
 - 4x memory saving.
 - Latency similar (dequant overhead small).
 

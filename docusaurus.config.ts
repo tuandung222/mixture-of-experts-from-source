@@ -116,6 +116,11 @@ const config: Config = {
           label: 'Bài giảng',
         },
         {
+          to: '/docs/resources/glossary',
+          label: 'Thuật ngữ',
+          position: 'left',
+        },
+        {
           href: 'https://github.com/tuandung222/mixture-of-experts-from-source',
           label: 'GitHub',
           position: 'right',
@@ -130,6 +135,18 @@ const config: Config = {
           items: [
             {label: 'Tổng quan MoE', to: '/docs/00-tong-quan/01-overview'},
             {label: 'Foundations', to: '/docs/01-foundations/01-overview'},
+            {label: 'HF MoE infrastructure', to: '/docs/02-hf-moe-infra/01-overview'},
+            {label: 'Model walkthroughs', to: '/docs/03-models/01-overview'},
+            {label: 'Cross-cutting', to: '/docs/04-cross-cutting/01-overview'},
+            {label: 'Design comparison', to: '/docs/05-comparison/01-overview'},
+          ],
+        },
+        {
+          title: 'Tài nguyên',
+          items: [
+            {label: 'Glossary', to: '/docs/resources/glossary'},
+            {label: 'Cheatsheet', to: '/docs/resources/cheatsheet'},
+            {label: 'References', to: '/docs/resources/references'},
           ],
         },
       ],
