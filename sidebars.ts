@@ -33,6 +33,30 @@ const sidebars: SidebarsConfig = {
         '01-foundations/06-shared-experts-va-fine-grained',
       ],
     },
+    {
+      type: 'category',
+      label: 'Phần 2: HF MoE infrastructure',
+      link: {type: 'doc', id: '02-hf-moe-infra/01-overview'},
+      collapsed: false,
+      items: [
+        '02-hf-moe-infra/01-overview',
+        '02-hf-moe-infra/02-integrations-moe-py-anatomy',
+        '02-hf-moe-infra/03-experts-interface-va-decorator',
+        '02-hf-moe-infra/04-batched-mm-vs-grouped-mm',
+        '02-hf-moe-infra/05-load-balancing-loss-helper',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Phần 3: Model walkthroughs',
+      link: {type: 'doc', id: '03-models/01-overview'},
+      collapsed: false,
+      items: [
+        '03-models/01-overview',
+        '03-models/02-mixtral',
+        '03-models/03-switch-transformers',
+      ],
+    },
   ],
 };
 
